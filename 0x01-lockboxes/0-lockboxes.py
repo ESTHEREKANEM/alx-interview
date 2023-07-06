@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"This Script will unlock all the boxes"
+"""Script will unlock list of lists"""
 
 
 def canUnlockAll(boxes):
@@ -7,17 +7,11 @@ def canUnlockAll(boxes):
        of a list will unlock other lists
     """
 
-    num_boxes = len(boxes)
-    unlocked = [False] * num_boxes
-    unlocked[0] = True
-
-    keys = boxes[0]
+    keys = [0]
     for key in keys:
-        if key < num_boxes:
-            unlocked[key] = True
-
-    for i in range(1, num_boxes):
-        if not unlocked[i]:
-            return False
-
+        for boxKey in boxes[key]:
+            if boxKey not in keys and boxKey < len(boxes):
+                keys.append(boxKey)
+    if len(keys) == len(boxes):
+        return True
     return False

@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Script will unlock list of lists"""
+"""This script will unlock list of lists"""
 
 
 def canUnlockAll(boxes):

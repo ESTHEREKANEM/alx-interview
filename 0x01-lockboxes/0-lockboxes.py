@@ -1,17 +1,19 @@
 #!/usr/bin/python3
 "This Script will unlock all the boxes"
 
+
 def canUnlockAll(boxes):
-    numBoxes = len(boxes)
-    unlocked = [False] * numBoxes
+    num_boxes = len(boxes)
+    unlocked = [False] * num_boxes
     unlocked[0] = True
 
     keys = boxes[0]
-    while keys:
-        key = keys.pop()
-        if key >= numBoxes:
-            continue
-        unlocked[key] = True
-        keys.extend(boxes[key])
+    for key in keys:
+        if key < num_boxes:
+            unlocked[key] = True
 
-    return all(unlocked)
+    for i in range(1, num_boxes):
+        if not unlocked[i]:
+            return False
+
+    return True

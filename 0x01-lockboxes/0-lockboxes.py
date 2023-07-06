@@ -3,6 +3,10 @@
 
 
 def canUnlockAll(boxes):
+    """This function will take a list of lists and the content
+       of a list will unlock other lists
+    """
+
     num_boxes = len(boxes)
     unlocked = [False] * num_boxes
     unlocked[0] = True
@@ -16,4 +20,4 @@ def canUnlockAll(boxes):
         if not unlocked[i]:
             return False
 
-    return True
+    return False

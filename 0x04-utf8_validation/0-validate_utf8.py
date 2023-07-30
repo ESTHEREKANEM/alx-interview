@@ -3,6 +3,9 @@
 
 
 def validUTF8(data):
+    """Determines if a given data set
+    represents a valid utf-8 encoding
+    """
     def get_byte_count(byte):
         if byte & 0x80 == 0:
             return 1

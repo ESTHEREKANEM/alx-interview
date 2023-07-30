@@ -6,32 +6,34 @@ def validUTF8(data):
     """Determines if a given data set
     represents a valid utf-8 encoding
     """
-    def get_byte_count(byte):
-        if byte & 0x80 == 0:
-            return 1
-        elif byte & 0xE0 == 0xC0:
-            return 2
-        elif byte & 0xF0 == 0xE0:
-            return 3
-        elif byte & 0xF8 == 0xF0:
-            return 4
-        else:
-            return -1
+    bytes_count = 0
 
-    i = 0
-    while i < len(data):
-        byte_count = get_byte_count(data[i])
-        if byte_count == -1:
-            return False
+    mask_1 = 1 << 7
+    mask_2 = 1 << 6
 
-        if i + byte_count > len(data):
-            return False
+    for i in data:
 
-        for j in range(1, byte_count):
-            if (data[i + j] & 0xC0) != 0x80:
+        mask_byte = 1 << 7
+
+        if bytes_count == 0:
+
+            while mask_byte & i:
+                bytes_count += 1
+                mask_byte = mask_byte >> 1
+
+            if bytes_count == 0:
+                continue
+
+            if bytes_count == 1 or bytes_count > 4:
                 return False
 
-        i += byte_count
+        else:
+            if not (i & mask_1 and not (i & mask_2)):
+                return False
 
-    return True
+        bytes_count -= 1
 
+    if bytes_count == 0:
+        return True
+
+    return False

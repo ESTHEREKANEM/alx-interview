@@ -3,7 +3,7 @@
 import sys
 
 
-def solve(row, column):
+def solve_nqueens(row, column):
     solver = [[]]
     for q in range(row):
         solver = place_queen(q, column, solver)
@@ -11,17 +11,23 @@ def solve(row, column):
 
 
 def place_queen(q, column, prev_solver):
-    return [array + [x] for array in prev_solver for x in range(column) if is_safe(q, x, array)]
+    solver_queen = []
+    for array in prev_solver:
+        for x in range(column):
+            if is_safe(q, x, array):
+                solver_queen.append(array + [x])
+    return solver_queen
 
 
 def is_safe(q, x, array):
     if x in array:
         return False
     else:
-        return all(abs(array[column] - x) != q - column for column in range(q))
+        return all(abs(array[column] - x) != q - column
+                   for column in range(q))
 
 
-def init():
+def validate_input():
     if len(sys.argv) != 2:
         print("Usage: nqueens N")
         sys.exit(1)
@@ -36,15 +42,21 @@ def init():
     return the_queen
 
 
-def n_queens():
-    the_queen = init()
-    solver = solve(the_queen, the_queen)
-    for array in solver:
+def print_solutions(solutions):
+    for array in solutions:
         clean = []
         for q, x in enumerate(array):
             clean.append([q, x])
         print(clean)
 
 
+def n_queens():
+    the_queen = validate_input()
+    solver = solve_nqueens(the_queen, the_queen)
+    for array in solver:
+        print_solutions(array)
+
+
 if __name__ == '__main__':
     n_queens()
+

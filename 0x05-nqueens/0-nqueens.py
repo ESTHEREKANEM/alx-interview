@@ -2,20 +2,19 @@
 
 import sys
 
-
 def is_safe(board, row, col, N):
     for i in range(row):
         if board[i][col] == 'Q':
             return False
-    
+
     for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
         if board[i][j] == 'Q':
             return False
-    
+
     for i, j in zip(range(row, -1, -1), range(col, N)):
         if board[i][j] == 'Q':
             return False
-    
+
     return True
 
 def solve_nqueens(N):

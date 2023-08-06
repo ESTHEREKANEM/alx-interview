@@ -28,7 +28,10 @@ def nqueens(N):
       if is_valid(board, row, col):
         board[row][col] = 1
         if nqueens(N - 1):
-          print(board)
+          for i in range(N):
+            for j in range(N):
+              print(board[i][j], end=" ")
+          print()
         board[row][col] = 0
 
 if __name__ == "__main__":

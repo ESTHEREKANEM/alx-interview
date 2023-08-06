@@ -4,6 +4,7 @@ N queens puzzle is the challenge of placing
 N non-attacking queens on an N x N chessboard
 This program solves the N queens problem.
 """
+
 import sys
 
 def is_valid(board, row, col):
@@ -36,4 +37,3 @@ def nqueens(N):
 if __name__ == "__main__":
   N = int(sys.argv[1])
   nqueens(N)
-

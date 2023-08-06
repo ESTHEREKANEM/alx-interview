@@ -7,6 +7,7 @@ This program solves the N queens problem.
 
 import sys
 
+
 def is_valid(board, row, col):
   for i in range(row):
     if board[i][col] == 1:
@@ -23,17 +24,31 @@ def nqueens(N):
     sys.exit(1)
 
   board = [[0] * N for _ in range(N)]
+  solutions = []
   for row in range(N):
     for col in range(N):
       if is_valid(board, row, col):
         board[row][col] = 1
         if nqueens(N - 1):
-          for i in range(N):
-            for j in range(N):
-              print(board[i][j], end=" ")
-          print()
+          solutions.append(board)
         board[row][col] = 0
+  return solutions
+
+def parse_args():
+  args = sys.argv[1:]
+  if len(args) != 1:
+    print("Usage: nqueens N")
+    sys.exit(1)
+  N = int(args[0])
+  return N
+
+def main():
+  N = parse_args()
+  solutions = nqueens(N)
+  for solution in solutions:
+    for row in solution:
+      print(*row, end=" ")
+    print()
 
 if __name__ == "__main__":
-  N = int(sys.argv[1])
-  nqueens(N)
+  main()

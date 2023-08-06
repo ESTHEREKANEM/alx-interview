@@ -8,25 +8,29 @@ This program solves the N queens problem.
 import sys
 
 
-def is_safe(chessboard, row, col):
-    """Check if the board is valid for the given row and column"""
+def is_board_ok(chessboard: list, row: int, col: int):
+    """check if the board is valid for the given row and column"""
     for i in range(row):
-        if chessboard[i] == col or abs(chessboard[i] - col) == abs(i - row):
+        if chessboard[i] == col:
+            return False
+        if abs(chessboard[i] - col) == abs(i - row):
             return False
     return True
 
 
-def solve_nqueens(chessboard, row):
-    """Solves the N queens problem"""
+def n_queens(chessboard: list, row: int):
+    """solves the N queens problem"""
     n = len(chessboard)
     if row == n:
-        return [tuple((i, chessboard[i])) for i in range(n)]
-    solutions = []
-    for col in range(n):
-        if is_safe(chessboard, row, col):
-            chessboard[row] = col
-            solutions.extend(solve_nqueens(chessboard, row + 1))
-    return solutions
+        result = []
+        for i in range(n):
+            result.append([i, chessboard[i]])
+        print(result)
+    else:
+        for col in range(n):
+            if is_board_ok(chessboard, row, col):
+                chessboard[row] = col
+                n_queens(chessboard, row + 1)
 
 
 if __name__ == "__main__":
@@ -44,4 +48,4 @@ if __name__ == "__main__":
         print("N must be at least 4")
         sys.exit(1)
 
-    solve_nqueens([0] * n, 0)
+    n_queens([0] * n, 0)

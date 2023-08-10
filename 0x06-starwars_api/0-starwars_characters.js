@@ -24,4 +24,3 @@ request(filmUrl, async function (error, response, body) {
     }
   }
 });
-

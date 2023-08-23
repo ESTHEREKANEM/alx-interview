@@ -3,32 +3,27 @@
     determine the fewest number of coins needed to meet
     a given amount total.
 '''
-from sys import maxsize
+import sys
 
 
-def make_change(coins, total):
+def makeChange(coins, total):
     '''
-    Calculate the fewest number of coins needed to meet the given total amount.
-
-    Args:
-        coins (list of int): A list of coin values.
-        total (int): The target total amount.
-
-    Returns:
-        int: The minimum number of coins needed to meet the total. Return -1 if it's not possible.
+    Return: fewest number of coins needed to meet total
+    If total is 0 or less, return 0
+    If total cannot be met by any number of coins you have, return -1
     '''
     if total <= 0:
         return 0
-    table = [maxsize for _ in range(total + 1)]
+    table = [sys.maxsize for i in range(total + 1)]
     table[0] = 0
     m = len(coins)
     for i in range(1, total + 1):
         for j in range(m):
             if coins[j] <= i:
                 subres = table[i - coins[j]]
-                if subres != maxsize and subres + 1 < table[i]:
+                if subres != sys.maxsize and subres + 1 < table[i]:
                     table[i] = subres + 1
 
-    if table[total] == maxsize:
+    if table[total] == sys.maxsize:
         return -1
     return table[total]

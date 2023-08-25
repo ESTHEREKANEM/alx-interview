@@ -6,22 +6,20 @@ determine the fewest number of coins needed to meet a given amount total
 
 
 def makeChange(coins, total):
-"""
+    """
     Given a pile of coins of different values,
     determine the fewest number of coins needed to meet a given amount total
     """
-    if total <= 0:
-        return 0
-    
     dp = [float("inf")] * (total + 1)
+
     dp[0] = 0
-    
-    for coin_value in coins:
-        for amount in range(coin_value, total + 1):
-            dp[amount] = min(dp[amount], dp[amount - coin_value] + 1)
-    
-    if dp[total] != float("inf"):
-        return dp[total]
+    n = len(coins)
+
+    for i in range(1, n + 1):
+        for j in range(total + 1):
+            if coins[i - 1] <= j:
+                dp[j] = min(dp[j], dp[j - coins[i - 1]] + 1)
+    if dp[-1] != float("inf"):
+        return dp[-1]
     else:
         return -1
-

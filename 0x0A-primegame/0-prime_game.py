@@ -1,25 +1,37 @@
-def is_winner(x, nums):
-    def is_prime(num):
-        if num <= 1:
+#!/usr/bin/python3
+"""
+Maria and Ben are playing a game. Given a set of consecutive integers
+starting from 1 up to and including n,
+they take turns choosing a prime number from the set
+and removing that number and its multiples from the set.
+The player that cannot make a move loses the game.
+"""
+
+
+def prime_number(p):
+    """
+    function to get prime numbers
+    """
+    for i in range(p):
+        if p % 2 == 0:
             return False
-        for i in range(2, int(num**0.5) + 1):
-            if num % i == 0:
-                return False
-        return True
-
-    maria_wins = 0
-    ben_wins = 0
-
-    for n in nums:
-        prime_count = sum(1 for i in range(1, n + 1) if is_prime(i))
-        if prime_count % 2 == 0:
-            ben_wins += 1
         else:
-            maria_wins += 1
+            return True
 
-    if maria_wins > ben_wins:
-        return "Maria"
-    elif ben_wins > maria_wins:
-        return "Ben"
+
+def isWinner(x, nums):
+    """
+    x rounds of the game, where n may be different for each round.
+    Assuming Maria always goes first and both players play optimally,
+    determine who the winner of each game is
+    """
+    count = 0
+    for i in range(1, x):
+        count += 1
+    for j in nums:
+        if prime_number(j):
+            continue
+    if count % j == 0:
+        return 'Maria'
     else:
-        return None
+        return 'Ben'
